@@ -45,14 +45,22 @@ export default function BookmarkList({ user, search }: Props) {
     b.title.toLowerCase().includes(search.toLowerCase())
   )
 
+  if (filtered.length === 0) {
+    return (
+      <div className="text-center text-gray-500 dark:text-gray-400 py-20">
+        No bookmarks found.
+      </div>
+    )
+  }
+
   return (
-    <div className="grid grid-cols-2 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
       {filtered.map((bookmark) => (
         <div
           key={bookmark.id}
-          className="bg-white dark:bg-[#2A2A2A] p-6 rounded-xl shadow-sm hover:shadow-lg transition border border-gray-200 dark:border-gray-700"
+          className="bg-white dark:bg-[#2A2A2A] p-5 md:p-6 rounded-xl shadow-sm hover:shadow-lg transition border border-gray-200 dark:border-gray-700"
         >
-          <h3 className="font-semibold text-xl mb-2 dark:text-white">
+          <h3 className="font-semibold text-lg md:text-xl mb-2 dark:text-white">
             {bookmark.title}
           </h3>
 

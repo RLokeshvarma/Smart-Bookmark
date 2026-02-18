@@ -18,7 +18,7 @@ export default function DashboardClient() {
   const [title, setTitle] = useState("")
   const [url, setUrl] = useState("")
 
-  // 🔹 Get current user
+  // Get current user
   useEffect(() => {
     const getUser = async () => {
       const { data } = await supabase.auth.getUser()
@@ -35,7 +35,7 @@ export default function DashboardClient() {
     getUser()
   }, [])
 
-  // 🔥 Logout sync
+  // Logout sync
   useEffect(() => {
     const {
       data: { subscription },
@@ -88,12 +88,12 @@ export default function DashboardClient() {
   return (
     <div className="min-h-screen bg-[#F7F7F7] dark:bg-[#1E1E1E] transition">
 
-      {/* NAVBAR */}
-      <div className="flex items-center bg-white dark:bg-[#2A2A2A] border-b border-gray-200 dark:border-gray-700 px-10 py-3">
+      {/* ================= NAVBAR ================= */}
+      <div className="flex flex-col md:flex-row md:items-center bg-white dark:bg-[#2A2A2A] border-b border-gray-200 dark:border-gray-700 px-4 md:px-10 py-4 gap-4 md:gap-0">
 
-        {/* Left 25% */}
-        <div className="w-1/4">
-          <h1 className="text-xl font-bold text-[#FF6B01]">
+        {/* LEFT SECTION */}
+        <div className="md:w-1/4">
+          <h1 className="text-lg md:text-xl font-bold text-[#FF6B01]">
             SmartBookmark
           </h1>
           <p className="text-xs text-gray-500 dark:text-gray-300">
@@ -101,11 +101,11 @@ export default function DashboardClient() {
           </p>
         </div>
 
-        {/* Right 75% */}
-        <div className="w-3/4 flex justify-between items-center">
+        {/* RIGHT SECTION */}
+        <div className="md:w-3/4 flex flex-col md:flex-row md:justify-between md:items-center gap-4">
 
           {/* Search */}
-          <div className="relative w-[550px]">
+          <div className="relative w-full md:w-[450px]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="absolute left-3 top-2.5 w-4 h-4 text-gray-400 dark:text-gray-300"
@@ -133,25 +133,26 @@ export default function DashboardClient() {
             />
           </div>
 
-          <div className="flex items-center gap-5">
+          {/* Buttons */}
+          <div className="flex items-center justify-between md:justify-end gap-4">
 
             <button
               onClick={() => setShowAddModal(true)}
-              className="px-4 py-1.5 text-sm rounded-lg bg-orange-100 text-[#FF6B01] hover:bg-orange-200 transition"
+              className="px-3 md:px-4 py-1.5 text-sm rounded-lg bg-orange-100 text-[#FF6B01] hover:bg-orange-200 transition"
             >
-              + Add Bookmark
+              + Add
             </button>
 
             <div className="relative">
               <div
                 onClick={() => setShowProfileMenu(!showProfileMenu)}
-                className="w-9 h-9 rounded-full bg-gray-300 flex items-center justify-center cursor-pointer hover:bg-gray-400 transition"
+                className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-gray-300 flex items-center justify-center cursor-pointer hover:bg-gray-400 transition"
               >
                 👤
               </div>
 
               {showProfileMenu && (
-                <div className="absolute right-0 mt-2 w-44 bg-white dark:bg-[#2A2A2A] 
+                <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-[#2A2A2A] 
                 border border-gray-200 dark:border-gray-600 
                 rounded-lg shadow-lg">
 
@@ -182,11 +183,11 @@ export default function DashboardClient() {
         </div>
       </div>
 
-      {/* BODY */}
-      <div className="flex">
+      {/* ================= BODY ================= */}
+      <div className="flex flex-col md:flex-row">
 
-        {/* SIDEBAR */}
-        <div className="w-1/4 bg-white dark:bg-[#2A2A2A] border-r border-gray-200 dark:border-gray-700 min-h-screen p-8">
+        {/* SIDEBAR (Hidden on Mobile) */}
+        <div className="hidden md:block md:w-1/4 bg-white dark:bg-[#2A2A2A] border-r border-gray-200 dark:border-gray-700 min-h-screen p-8">
           <h2 className="font-semibold mb-6 text-lg text-[#353535] dark:text-white">
             Bookmarks
           </h2>
@@ -205,15 +206,15 @@ export default function DashboardClient() {
         </div>
 
         {/* CONTENT */}
-        <div className="flex-1 p-10">
+        <div className="flex-1 p-4 md:p-10">
           <BookmarkList user={user} search={search} />
         </div>
       </div>
 
-      {/* ADD MODAL */}
+      {/* ================= ADD MODAL ================= */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-black/30 flex items-center justify-center">
-          <div className="bg-white dark:bg-[#2A2A2A] p-8 rounded-xl w-[450px] shadow-xl">
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center px-4">
+          <div className="bg-white dark:bg-[#2A2A2A] p-6 md:p-8 rounded-xl w-full max-w-[450px] shadow-xl">
             <h2 className="text-lg font-semibold mb-6 dark:text-white">
               Add Bookmark
             </h2>
