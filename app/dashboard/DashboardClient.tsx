@@ -91,6 +91,7 @@ export default function DashboardClient() {
       {/* NAVBAR */}
       <div className="flex items-center bg-white dark:bg-[#2A2A2A] border-b border-gray-200 dark:border-gray-700 px-10 py-3">
 
+        {/* Left 25% */}
         <div className="w-1/4">
           <h1 className="text-xl font-bold text-[#FF6B01]">
             SmartBookmark
@@ -100,6 +101,7 @@ export default function DashboardClient() {
           </p>
         </div>
 
+        {/* Right 75% */}
         <div className="w-3/4 flex justify-between items-center">
 
           {/* Search */}
@@ -182,12 +184,27 @@ export default function DashboardClient() {
 
       {/* BODY */}
       <div className="flex">
+
+        {/* SIDEBAR */}
         <div className="w-1/4 bg-white dark:bg-[#2A2A2A] border-r border-gray-200 dark:border-gray-700 min-h-screen p-8">
           <h2 className="font-semibold mb-6 text-lg text-[#353535] dark:text-white">
             Bookmarks
           </h2>
+
+          <div className="space-y-3 text-sm text-gray-600 dark:text-gray-300">
+            <p className="cursor-pointer hover:text-[#FF6B01] transition">
+              All Bookmarks
+            </p>
+            <p className="cursor-pointer hover:text-[#FF6B01] transition">
+              Recent
+            </p>
+            <p className="cursor-pointer hover:text-[#FF6B01] transition">
+              Favorites
+            </p>
+          </div>
         </div>
 
+        {/* CONTENT */}
         <div className="flex-1 p-10">
           <BookmarkList user={user} search={search} />
         </div>
@@ -207,7 +224,7 @@ export default function DashboardClient() {
                 placeholder="Title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full border border-gray-300 dark:border-gray-600 dark:bg-[#3A3A3A] p-2 rounded-lg"
+                className="w-full border border-gray-300 dark:border-gray-600 dark:bg-[#3A3A3A] p-2 rounded-lg dark:text-white"
               />
 
               <input
@@ -215,7 +232,7 @@ export default function DashboardClient() {
                 placeholder="URL"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                className="w-full border border-gray-300 dark:border-gray-600 dark:bg-[#3A3A3A] p-2 rounded-lg"
+                className="w-full border border-gray-300 dark:border-gray-600 dark:bg-[#3A3A3A] p-2 rounded-lg dark:text-white"
               />
 
               <div className="flex justify-end gap-3 mt-4">

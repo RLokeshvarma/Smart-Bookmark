@@ -27,9 +27,7 @@ export default function BookmarkList({ user, search }: Props) {
   useEffect(() => {
     fetchBookmarks()
 
-    // ✅ Safe polling for multi-tab sync
     const interval = setInterval(fetchBookmarks, 2000)
-
     return () => clearInterval(interval)
   }, [user])
 
@@ -66,7 +64,7 @@ export default function BookmarkList({ user, search }: Props) {
             {bookmark.url}
           </a>
 
-          <div className="flex justify-end gap-3 mt-6">
+          <div className="flex justify-end mt-6">
             <button
               onClick={() => handleDelete(bookmark.id)}
               className="px-3 py-1 text-sm bg-black text-white dark:bg-gray-700 rounded-xl hover:bg-gray-700 dark:hover:bg-gray-600 transition"
