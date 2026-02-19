@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Smart Bookmark App
 
-## Getting Started
+SmartBookmark is a modern full-stack bookmark management application built using **Next.js App Router, Supabase,** and **Tailwind CSS**.
+It allows users to securely log in with Google, manage bookmarks, and experience a fully responsive SaaS-style UI.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Live Demo
+
+Deployed on Vercel -> https://smart-bookmark-app-abs.vercel.app/
+
+---
+
+## Project Requirements
+
+
+---
+
+## Tech Stack
+
+- **Frontend**  Next.js 16(App Router)
+- **Backend**  Supabase
+- **Database**  PostgreSQL (Supabase)
+- **Auth**  Supabase Google Auth
+- **Styling**  Tailwind CSS
+- **Deployment**  Vercel
+- **Version Control**  GitHub
+---
+
+## Architecture Overview
+
+---
+
+## Folder Structure
+
+```txt
+app/
+ ├── page.tsx
+ ├── dashboard/
+ │     ├── page.tsx
+ │     └── DashboardClient.tsx
+components/
+ ├──  BookmarkList.tsx
+ ├──  BookmarkForm.tsx
+ ├──  LoginButton.tsx
+ └──  ThemeToggle.tsx
+lib/
+ └── supabaseClient.ts
+middleware.ts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Challenges Faced & Solutions
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Future Improvements
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Bookmark categories
+- Favorites feature
+- Drag & drop reordering
+- Shareable public bookmark collections
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## What this Project Demonstrates
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Full-stack architecture knowledge
+- Secure authentication handling
+- Database design with RLS
+- Responsive UI development
+- Production deployment workflow
+- Debugging and problem-solving skills
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
