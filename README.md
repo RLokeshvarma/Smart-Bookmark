@@ -8,7 +8,7 @@ A full-stack bookmark manager built with **Next.js**, **Supabase**, and **Tailwi
 
 ## Problem, Why & How
 
-People lose important links across chat messages, tabs, and notes. This app gives every user a **private, searchable space** to save bookmarks — isolated from other users at the database level.
+People save important links in random places — WhatsApp messages, sticky notes, open browser tabs — and lose them. This app gives every user a **clean, private, searchable space** to save and revisit bookmarks, with the guarantee that no one else can ever see their data.
 
 ### Tech Stack
 
@@ -149,13 +149,38 @@ middleware.ts                   # Protects /dashboard route
 
 ## Problems & Solutions
 
-**1. OAuth redirecting to homepage** — Missing `/auth/callback` route. Fixed by implementing the callback handler to exchange the code for a session.
+### 1. After Google Login, App Redirected Back to Homepage
 
-**2. Middleware package not found** — `@supabase/auth-helpers-nextjs` is deprecated. Migrated to `@supabase/ssr` with `createServerClient()`.
+I clicked login, went through Google's screen, and ended up right back on the landing page. No error, no dashboard — just a loop.
 
-**3. Dashboard rendering blank** — Incorrect default component export. Fixed the export and folder structure to match App Router conventions.
+After digging in, the issue was that I had no `/auth/callback` route at all. Supabase OAuth works by redirecting back to your app with a `code` in the URL — and that code needs to be exchanged for a session. Without the callback route, there was nowhere to do that exchange, so the session was never created.
 
-**4. Realtime WebSocket timing out** — WebSockets were blocked in the local environment. Replaced with a polling fallback — stable, no WebSocket dependency.
+**Fix:** Created `/app/auth/callback/route.ts` that receives the code and calls `supabase.auth.exchangeCodeForSession()`, then redirects to `/dashboard`.
+
+
+### 2. Middleware Threw "Module Not Found" Error
+
+The app crashed immediately on startup with `Cannot find module '@supabase/auth-helpers-nextjs'`. I had followed an older tutorial that used this package for protecting routes in middleware.
+
+Turns out `auth-helpers-nextjs` is deprecated and no longer works with the Next.js App Router's new middleware pattern.
+
+**Fix:** Switched to `@supabase/ssr` and used `createServerClient()` with the correct cookie handlers. This is the officially supported approach for App Router.
+
+### 3. Dashboard Loaded But Showed a Blank Page
+
+Once auth was working, hitting `/dashboard` just showed a white screen — no error in the browser, nothing in the terminal either.
+
+The problem was a broken default export on `page.tsx`. Next.js App Router silently fails to render a page if the default export isn't a valid React component — it doesn't throw, it just renders nothing.
+
+**Fix:** Corrected the default export and cleaned up the component structure. Lesson learned: always double-check exports when App Router pages go blank without errors.
+
+### 4. Supabase Realtime WebSocket Kept Timing Out
+
+The assignment required bookmarks to sync across tabs in real-time. I set up Supabase Realtime subscriptions, but the connection kept showing `TIMED_OUT` in the logs and never actually fired any events.
+
+The root cause was that WebSocket connections were being blocked in my local environment. I spent time debugging the Supabase config before realising the issue wasn't in my code at all.
+
+**Fix:** Replaced Realtime with a polling fallback — fetch on mount, apply optimistic updates on user actions, and re-fetch on tab focus. Not as elegant as WebSockets, but completely stable and reliable across all environments.
 
 
 ---
