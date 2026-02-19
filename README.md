@@ -29,6 +29,24 @@ Deployed on Vercel -> https://smart-bookmark-app-abs.vercel.app/
 
 ## Architecture Overview
 
+```txt
+User (Browser)
+      ↓
+Next.js Frontend (App Router)
+      ↓
+Supabase Auth (Google OAuth)
+      ↓
+Supabase Database (PostgreSQL)
+      ↓
+Row Level Security (auth.uid() = user_id)
+      ↓
+Filtered Data Returned
+      ↓
+React State Updates UI
+      ↓
+Bookmark Cards Rendered
+```
+
 ---
 
 ## Folder Structure
